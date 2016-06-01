@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to Firebase Hosting</title>
+
+    <style media="screen">
+      body {
+        font-family: Roboto, Arial, sans-serif;
+        background: #ECEFF1;
+        color: rgba(0,0,0,0.87);
+      }
+
+      a {
+        color: rgb(3,155,229);
+      }
+
+      #message {
+        max-width: 400px;
+        margin: 40px auto;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
+        border-radius: 2px;
+        background: white;
+        padding: 16px 24px;
+      }
+
+      #container {
+        max-width: 400px;
+        margin: 40px auto;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
+        border-radius: 2px;
+        background: white;
+        padding: 16px 24px;
+      }
+
+      #container div div{
+        border-radius: 25px;
+        border: 2px solid #cccccc;
+        padding: 20px;
+      }
+
+      #message h1 {
+        font-size: 22px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 0 16px;
+      }
+
+      #message p {
+        font-weight: 300;
+        line-height: 150%;
+      }
+
+      #message ul {
+        list-style: none;
+        margin: 16px 0 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      #message li a {
+        display: inline-block;
+        padding: 8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: 500;
+        background: rgb(3,155,229);
+        color: white;
+        border: 1px solid rgb(3,155,229);
+        border-radius: 3px;
+        font-size: 14px;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+      }
+
+      .row-container {height: 100%; width:100%; font-size:0;}
+
+      .left, .middle, .right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+      .left {width: 25%; background: blue;}
+      .middle {width: 50%; background: green;}
+      .right {width: 25%; background: yellow;}
+
+    </style>
+  </head>
+
+
+  <body>
+    <div id="search_box">
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-rc1/jquery.min.js"></script>
+    <script src="https://fb.me/react-15.0.0.js"></script>
+    <script src="https://fb.me/react-dom-15.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <!-- ReactFire -->
+    <script src="https://cdn.firebase.com/libs/reactfire/0.6.0/reactfire.min.js"></script>
+    <script src="constants.js"></script>
+    <script src="utils.js"></script>
+    <div id="container">
+      dhashdhasdhsal
+    </div>
+
+    <script type="text/babel">
+      console.log("hello");
+
+
+     //TODO: get this from outside
+     var USER_ID = "id2";
+
+     //Entry
+    var Entry = React.createClass({
+    render: function() {
+    return <div onClick={() => updateInput(this.props.link)}> {this.props.link} </div>
+    }
+    });
+
+
+
+    //List
+    var List = React.createClass({
+    mixins: [ReactFireMixin],
+    componentWillMount: function() {
+    var path = this.props.url;
+    var ref = new Firebase(path);
+    console.log(path);
+    this.bindAsArray(ref, "items");
+    },
+
+    getInitialState: function() {
+    return {items: [] };
+    },
+
+    render: function() {
+    {console.log(this.state.items.length);}
+    var rows = [];
+    for(var i in this.state.items)
+    {
+      var link = this.state.items[i].deep_link;
+      var key = this.state.items[i][".key"];
+      console.log("checking link = "+link+" against input = "+currentInput);
+      if(link.toLowerCase().indexOf(currentInput.toLowerCase()) != -1)
+      {
+      rows.push(<Entry linkKey={key} link={link}/>);
+      console.log("passed");
+      }
+    }
+    console.log("size = "+rows.length);
+    return <div>{rows}</div>;
+    }
+    })
+
+    var mainList = <List url= {getPath(USER_ID)}/>;
+    var reactDom = ReactDOM.render(
+    mainList,
+    document.getElementById('container')
+    );
+
+    var currentInput = "";
+
+    $("#search_box").load("search_bar.html");
+    $(document).ready(function () {
+    $('#search_box').on('input', function() {
+    currentInput = $('#link_input').val() // get the current value of the input field.
+    console.log("input = "+currentInput);
+    reactDom.forceUpdate();
+    });
+    });
+
+    function updateInput(input)
+    {
+      $('#link_input').val(input);
+      triggerInputChange();
+    }
+
+    function triggerInputChange()
+    {
+      currentInput = $('#link_input').val() // get the current value of the input field.
+    console.log("input = "+currentInput);
+    reactDom.forceUpdate();
+    }
+
+    </script>
+
+  </body>
+</html>
