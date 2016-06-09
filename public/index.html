@@ -161,11 +161,16 @@
 
     $("#search_box").load("search_bar.html");
     $(document).ready(function () {
-    $('#search_box').on('input', function() {
-    currentInput = $('#link_input').val() // get the current value of the input field.
-    console.log("input = "+currentInput);
-    reactDom.forceUpdate();
-    });
+      $('#search_box').on('input', function() {
+      currentInput = $('#link_input').val() // get the current value of the input field.
+      console.log("input = "+currentInput);
+      reactDom.forceUpdate();
+      });
+      $('#search-form').on('submit', function(e) {
+       e.preventDefault();
+       console.log("firing input = "+currentInput);
+       fireLink(USER_ID, currentInput);
+      });
     });
 
     function updateInput(input)
