@@ -118,9 +118,8 @@
     <script type="text/babel">
       console.log("hello");
 
-
-     //TODO: get this from outside
-     var USER_ID = "4f2e";
+     var path = window.location.pathname;
+     var USER_ID = path.substring(1, path.length);
 
      //Entry
     var Entry = React.createClass({
