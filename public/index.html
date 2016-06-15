@@ -33,6 +33,15 @@
         padding: 16px 24px;
       }
 
+      #search-form {
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
+        border-radius: 2px;
+        background: white;
+        padding: 16px 24px;
+      }
+
       #container div div{
         border-radius: 25px;
         border: 2px solid #cccccc;
@@ -176,6 +185,7 @@
     function updateInput(input)
     {
       $('#link_input').val(input);
+      document.getElementById("link_input").focus();
       triggerInputChange();
     }
 
