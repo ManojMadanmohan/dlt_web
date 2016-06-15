@@ -33,3 +33,27 @@ function getRandomId()
     var uniqid = (randLetter1 + Date.now()).substring(0,8) + randLetter2;
     return uniqid.toLowerCase();
 }
+
+ function initialNonMatchingInput(input, link)
+{
+    var matchIndex = link.indexOf(input);
+    if(matchIndex > 0)
+    {
+       return link.substring(0, matchIndex);
+    }
+    return "";
+}
+
+
+function matchingInput(input, link)
+{
+    var matchIndex = link.indexOf(input);
+    return link.substring(matchIndex, matchIndex+input.length);
+}
+
+
+function lastNonMatchingInput(input, link)
+{
+    var matchIndex = link.indexOf(input);
+    return link.substring(matchIndex+input.length, link.length);
+}

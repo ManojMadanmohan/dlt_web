@@ -126,9 +126,9 @@
     var Entry = React.createClass({
     render: function() {
     return <div onClick={() => updateInput(this.props.link)}>
-     <span className="black">{initialNonMatchingInput(this.props.link)}</span>
-     <span className="blue">{matchingInput(this.props.link)}</span>
-     <span className="black">{lastNonMatchingInput(this.props.link)}</span>
+     <span className="black">{initialNonMatchingInput(currentInput, this.props.link)}</span>
+     <span className="blue">{matchingInput(currentInput, this.props.link)}</span>
+     <span className="black">{lastNonMatchingInput(currentInput, this.props.link)}</span>
      </div>
     }
     });
@@ -204,29 +204,7 @@
     reactDom.forceUpdate();
     }
 
-    function initialNonMatchingInput(link)
-    {
-        var matchIndex = link.indexOf(currentInput);
-        if(matchIndex > 0)
-        {
-           return link.substring(0, matchIndex);
-        }
-        return "";
-    }
 
-
-    function matchingInput(link)
-    {
-        var matchIndex = link.indexOf(currentInput);
-        return link.substring(matchIndex, matchIndex+currentInput.length);
-    }
-
-
-    function lastNonMatchingInput(link)
-    {
-        var matchIndex = link.indexOf(currentInput);
-        return link.substring(matchIndex+currentInput.length, link.length);
-    }
     </script>
 
   </body>
