@@ -189,6 +189,16 @@
       });
     });
 
+    new Firebase(getQueuePath(USER_ID)).on("value", function(snapshot) {
+        if(snapshot.val() == null)
+        {
+          //$("link_input").prop('disabled', false);
+        } else
+        {
+          //$("link_input").prop('disabled', true);
+        }
+    });
+
     function updateInput(input)
     {
       $('#link_input').val(input);
