@@ -5,6 +5,12 @@
   position:relative;
   margin-bottom:5px;
 }
+span  {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  width:585px;
+  display:block;
+}
 input 				{
   font-size:18px;
   padding:10px 10px 10px 5px;

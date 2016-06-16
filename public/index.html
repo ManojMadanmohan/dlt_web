@@ -187,15 +187,35 @@
        console.log("firing input = "+currentInput);
        fireLink(USER_ID, currentInput);
       });
+
     });
+
+    $(function() {
+    $('#search-form').each(function() {
+        $(this).find('input').keypress(function(e) {
+            // Enter pressed?
+            if(e.which == 10 || e.which == 13) {
+                console.log("firing input = "+currentInput);
+                fireLink(USER_ID, currentInput);
+            }
+        });
+
+        $(this).find('input[type=submit]').hide();
+    });
+});
 
     new Firebase(getQueuePath(USER_ID)).on("value", function(snapshot) {
         if(snapshot.val() == null)
         {
-          //$("link_input").prop('disabled', false);
+          console.log("enabling");
+          $("#link_input").show(100);
+          $("#fake_input").hide(0);
         } else
         {
-          //$("link_input").prop('disabled', true);
+          console.log("disabling");
+          $("#fake_input").text(currentInput);
+          $("#fake_input").show(0);
+          $("#link_input").hide(100);
         }
     });
 
