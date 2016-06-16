@@ -207,14 +207,14 @@
         if(snapshot.val() == null)
         {
           console.log("enabling");
-          $("#link_input").show(100);
+          $("#link_input").show(0);
           $("#fake_input").hide(0);
         } else
         {
           console.log("disabling");
           $("#fake_input").text(currentInput);
           $("#fake_input").show(0);
-          $("#link_input").hide(100);
+          $("#link_input").hide(0);
         }
     });
 
