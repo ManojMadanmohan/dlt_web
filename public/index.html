@@ -120,7 +120,11 @@
 
      var path = window.location.pathname;
      var USER_ID = path.substring(1, path.length);
-
+     console.log("uid = "+USER_ID);
+      if(!USER_ID)
+      {
+        alert("No user id specified! please enter the link specified in the app properly\n (https://https://sweltering-fire-2158.firebaseapp.com/{id})");
+      }
      //Entry
     var Entry = React.createClass({
     render: function() {
