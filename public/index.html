@@ -42,10 +42,10 @@
         padding: 16px 24px;
       }
 
-      #container div div{
+      .entryRoot {
         border-radius: 25px;
         border: 2px solid #cccccc;
-        padding: 20px;
+        padding: 20px 20px 25px 20px;
       }
 
       #message h1 {
@@ -91,6 +91,8 @@
       .white { color:#ffffff; }
       .blue { color: blue; }
       .black { color:#000000; }
+      .image { width:30px; height:30px; align:right;}
+      .image_div { float:right;}
 
     </style>
   </head>
@@ -129,10 +131,11 @@
      //Entry
     var Entry = React.createClass({
     render: function() {
-    return <div onClick={() => updateInput(this.props.link)}>
+    return <div className="entryRoot" onClick={() => updateInput(this.props.link)}>
      <span className="black">{initialNonMatchingInput(currentInput, this.props.link)}</span>
      <span className="blue">{matchingInput(currentInput, this.props.link)}</span>
      <span className="black">{lastNonMatchingInput(currentInput, this.props.link)}</span>
+     <div className="image_div" > <img className="image"  src={"images/cancel.png"} alt="heellow orl"/></div>
      </div>
     }
     });
