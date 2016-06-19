@@ -2,7 +2,6 @@
     var path = window.location.pathname;
          var USER_ID = path.substring(1, path.length);
          console.log("uid = "+USER_ID);
-         alert("uid got = "+USER_ID);
 
 var Entry = React.createClass({
     render: function() {
