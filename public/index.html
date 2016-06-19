@@ -135,7 +135,7 @@
      <span className="black">{initialNonMatchingInput(currentInput, this.props.link)}</span>
      <span className="blue">{matchingInput(currentInput, this.props.link)}</span>
      <span className="black">{lastNonMatchingInput(currentInput, this.props.link)}</span>
-     <div className="image_div" > <img className="image"  src={"images/cancel.png"} alt="remove" title="remove"/></div>
+     <div className="image_div" onClick={(e)=> handleRemoveClick(e, this.props.linkKey)} > <img className="image"  src={"images/cancel.png"} alt="remove" title="remove"/></div>
      </div>
     }
     });
@@ -225,6 +225,12 @@
           $("#link_input").hide(0);
         }
     });
+
+    function handleRemoveClick(e, linkKey)
+    {
+      e.stopPropagation();
+      deleteLink(USER_ID, linkKey);
+    }
 
     function updateInput(input)
     {
