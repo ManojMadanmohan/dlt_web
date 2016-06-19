@@ -91,7 +91,7 @@
       .white { color:#ffffff; }
       .blue { color: blue; }
       .black { color:#000000; }
-      .historyEmpty { style:bold; }
+      .historyEmpty { font-weight:bold; }
       .image { width:30px; height:30px; align:right;}
       .image_div { float:right;}
 
@@ -141,7 +141,8 @@
     }
     });
 
-
+    //boolean to track data loaded
+    var loaded = false;
 
     //List
     var List = React.createClass({
@@ -149,8 +150,15 @@
     componentWillMount: function() {
     var path = this.props.url;
     var ref = new Firebase(path);
+    ref.on("value", function(snapshot) {
+    loaded = true;
+    });
     console.log(path);
     this.bindAsArray(ref, "items");
+    ref.on("value", function(snapshot) {
+    loaded = true;
+    reactDom.forceUpdate();
+    });
     },
 
     getInitialState: function() {
@@ -162,11 +170,18 @@
     var rows = [];
     if(this.state.items.length == 0)
     {
+      if(loaded)
+      {
       rows.push(<div className="historyEmpty"> No deep links in history </div>);
+      } else
+      {
+      rows.push(<div className="historyEmpty"> Just a moment... </div>);
+      }
       $("#container").css('opacity','0.5');
     }
     else
     {
+      $("#container").css('opacity','1.0');
     for(var i in this.state.items)
     {
       var link = this.state.items[i].deep_link;
