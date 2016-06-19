@@ -91,6 +91,7 @@
       .white { color:#ffffff; }
       .blue { color: blue; }
       .black { color:#000000; }
+      .historyEmpty { style:bold; }
       .image { width:30px; height:30px; align:right;}
       .image_div { float:right;}
 
@@ -159,6 +160,13 @@
     render: function() {
     {console.log(this.state.items.length);}
     var rows = [];
+    if(this.state.items.length == 0)
+    {
+      rows.push(<div className="historyEmpty"> No deep links in history </div>);
+      $("#container").css('opacity','0.5');
+    }
+    else
+    {
     for(var i in this.state.items)
     {
       var link = this.state.items[i].deep_link;
@@ -169,6 +177,7 @@
       rows.push(<Entry linkKey={key} link={link}/>);
       console.log("passed");
       }
+    }
     }
     console.log("size = "+rows.length);
     return <div>{rows}</div>;
