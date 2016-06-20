@@ -134,7 +134,7 @@
     );
 
     var currentInput = "";
-
+    var pushedToQueue = false;
     $("#search_box").load("search_bar.html");
     $(document).ready(function () {
       $('#search_box').on('input', function() {
@@ -145,8 +145,10 @@
       $('#search-form').on('submit', function(e) {
        e.preventDefault();
        console.log("firing input = "+currentInput);
+       pushedToQueue = true;
        fireLink(USER_ID, currentInput);
       });
+      $("#fake_input").hide(0);
 
     });
 
@@ -156,6 +158,7 @@
             // Enter pressed?
             if(e.which == 10 || e.which == 13) {
                 console.log("firing input = "+currentInput);
+                pushedToQueue = true;
                 fireLink(USER_ID, currentInput);
             }
         });
@@ -169,7 +172,8 @@
           console.log("enabling");
           $("#link_input").show(0);
           $("#fake_input").hide(0);
-        } else
+          $("#link_input").focus();
+        } else if(pushedToQueue == true)
         {
           console.log("disabling");
           $("#fake_input").text(currentInput);
