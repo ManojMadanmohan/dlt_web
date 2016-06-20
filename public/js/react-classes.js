@@ -83,6 +83,9 @@ var List = React.createClass({
       $("#container").css('opacity', '0.5');
     } else {
       $("#container").css('opacity', '1.0');
+      this.state.items.sort(function (a, b) {
+        return b.last_updated_millis - a.last_updated_millis;
+      });
       for (var i in this.state.items) {
         var link = this.state.items[i].deep_link;
         var key = this.state.items[i][".key"];
