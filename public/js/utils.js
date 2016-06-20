@@ -31,6 +31,7 @@ function getQueuePath(userId)
 
 function fireLink(id, link)
 {
+    pushedToQueue = true;
     var node = new Firebase(getQueuePath(id)+ getRandomId());
     node.set(link);
 }

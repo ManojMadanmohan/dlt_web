@@ -23,13 +23,17 @@
 
 	<body>
 		<div id="search-form">
-			<form class="form-container" action="">
+			<div style="float: left; display:inline; width:400px">
+			<form class="form-container" action="" style="display: inline">
 				<input type="text" id="link_input" placeholder="type and hit enter to fire" required>
 				<span id="fake_input" align="left"></span>
 				<!--<span class="highlight"></span>-->
 				<span class="bar"></span>
 				<input type="submit" style="position: absolute; left: -9999px"/>
 			</form>
+			</div>
+			<div class="image_div" id="fire_button" onclick="fireLink(USER_ID, currentInput);" > <img class="image" style="width:35px; height:35px;"  src="images/go.png" alt="fire" title="fire"/></div>
+
 
 		</div>
 	</body>

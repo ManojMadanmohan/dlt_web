@@ -39,7 +39,8 @@
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
         border-radius: 2px;
         background: white;
-        padding: 16px 24px;
+        padding: 20px 24px 20px 24px;
+        height:30px;
       }
 
       .entryRoot {
@@ -145,7 +146,6 @@
       $('#search-form').on('submit', function(e) {
        e.preventDefault();
        console.log("firing input = "+currentInput);
-       pushedToQueue = true;
        fireLink(USER_ID, currentInput);
       });
       $("#fake_input").hide(0);
@@ -158,7 +158,6 @@
             // Enter pressed?
             if(e.which == 10 || e.which == 13) {
                 console.log("firing input = "+currentInput);
-                pushedToQueue = true;
                 fireLink(USER_ID, currentInput);
             }
         });
