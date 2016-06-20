@@ -1,7 +1,7 @@
 //App Constants
 
 var ENVIRONMENT = "sandbox";
-//var ENVIROMENT = "production";
+//var ENVIRONMENT = "production";
 var baseUrl = "https://sweltering-fire-2158.firebaseio.com/"+ENVIRONMENT+"/users/";
 var historyNode = "/history/"
 var queueNode = "/mQueue/"
