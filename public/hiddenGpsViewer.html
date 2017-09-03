@@ -30,6 +30,7 @@
     <script>
 
       var markerMap = {};
+      var infoWindowMap = {};
       var map;
       function initMap() {
 
@@ -79,23 +80,25 @@
 
           var label = "<head>"+userId+"</head><br/> accuracy = "+Math.round(acc)+"<br/>"+getFormattedTimestamp(timeStamp);
           var latlng = new google.maps.LatLng(lat, lon);
-          var infowindow = new google.maps.InfoWindow({
-          content: label
-          });
           if (userId in markerMap)
           {
               marker = markerMap[userId];
+              infowindow = infoWindowMap[userId]
           } else
           {
               marker = new google.maps.Marker({
                   map: map,
                 });
+              var infowindow = new google.maps.InfoWindow({
+              });
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });
               markerMap[userId] = marker;
+              infoWindowMap[userId] = infowindow;
           }
+          infowindow.setContent(label)
           marker.setPosition(latlng);
-          marker.addListener('click', function() {
-          infowindow.open(map, marker);
-          });
       }
 
       function getFormattedTimestamp(ts)
