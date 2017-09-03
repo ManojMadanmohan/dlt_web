@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'>
+    </script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
+    </script>
+
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+      var markerMap = {};
+      var map;
+      function initMap() {
+
+        var myLatLng = {lat: 19.1612, lng: 72.9451};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: myLatLng
+        });
+
+        var ref = getRef();
+        ref.on('value', function(snapshot){
+            console.log(snapshot.val());
+            addData(snapshot);
+        });
+      }
+
+      function getRef()
+      {
+        var base_url = "https://sweltering-fire-2158.firebaseio.com/personal/hiddenGps/users";
+        var ref = new Firebase(base_url);
+        return ref;
+      }
+
+      function addData(snapshot)
+      {
+          snapshot.forEach(function(childSnapshot) {
+              // key will be "ada" the first time and "alan" the second time
+              var userId = childSnapshot.key();
+              console.log("id = "+userId)
+              childSnapshot = childSnapshot.child("location")
+              // childData will be the actual contents of the child
+              var lat = childSnapshot.child("lat").val();
+              var lon = childSnapshot.child("lon").val();
+              var acc = childSnapshot.child("accuracy").val();
+              var timeStamp = childSnapshot.child("timeStamp").val();
+              
+              console.log(lat+" "+lon+" "+acc+" "+timeStamp);
+
+              updateMarker(userId, lat, lon, acc, timeStamp);
+
+          })
+      }
+
+      function updateMarker(userId, lat, lon, acc, timeStamp)
+      {
+
+          var label = "<head>"+userId+"</head><br/> accuracy = "+Math.round(acc)+"<br/>"+getFormattedTimestamp(timeStamp);
+          var latlng = new google.maps.LatLng(lat, lon);
+          var infowindow = new google.maps.InfoWindow({
+          content: label
+          });
+          if (userId in markerMap)
+          {
+              marker = markerMap[userId];
+          } else
+          {
+              marker = new google.maps.Marker({
+                  map: map,
+                });
+              markerMap[userId] = marker;
+          }
+          marker.setPosition(latlng);
+          marker.addListener('click', function() {
+          infowindow.open(map, marker);
+          });
+      }
+
+      function getFormattedTimestamp(ts)
+      {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        var date = new Date(ts);
+        // Hours part from the timestamp
+        var hours = date.getHours();
+        // Minutes part from the timestamp
+        var minutes = "0" + date.getMinutes();
+        // Seconds part from the timestamp
+        var seconds = "0" + date.getSeconds();
+
+        var day = date.getDate();
+
+        var month = date.getMonth()+1;
+
+        var year = date.getFullYear();
+
+        // Will display time in 10:30:23 format
+        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+        var formattedDay = day + "/" + month + "/" + year;
+
+        return formattedDay+"  "+formattedTime;
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsZ_JAMnjF7QpzdTfkZBRAsoB8V_oN4dQ&callback=initMap">
+    </script>
+  </body>
+</html>
