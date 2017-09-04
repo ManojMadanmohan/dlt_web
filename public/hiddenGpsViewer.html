@@ -78,7 +78,7 @@
       function updateMarker(userId, lat, lon, acc, timeStamp)
       {
 
-          var label = "<head>"+userId+"</head><br/> accuracy = "+Math.round(acc)+"<br/>"+getFormattedTimestamp(timeStamp);
+          var label = "<head>"+userId+"</head><br/> accuracy = "+Math.round(acc)+"m<br/>"+getFormattedTimestamp(timeStamp);
           var latlng = new google.maps.LatLng(lat, lon);
           if (userId in markerMap)
           {
